@@ -1,0 +1,28 @@
+id: flatten-nested-list
+title: "Flatten Nested List"
+difficulty: medium
+category: recursion
+tags: [recursion, pattern-matching, adt]
+description: |
+  ## Flatten Nested List
+
+  Define a nested list type and write a function that flattens
+  an arbitrarily nested list into a flat list.
+
+  ### Examples
+  ```
+  flatten (Elem 1) == [1]
+  flatten (List [Elem 1, Elem 2]) == [1, 2]
+  flatten (List [Elem 1, List [Elem 2, Elem 3]]) == [1, 2, 3]
+  flatten (List []) == []
+  ```
+
+  ### Constraints
+  - Define your own nested list type (provided in starter)
+  - Must handle arbitrary nesting depth
+languages:
+  haskell:
+    functionName: "flatten"
+    moduleName: "Solution"
+  ocaml:
+    functionName: "flatten"

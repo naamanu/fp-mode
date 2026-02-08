@@ -1,0 +1,13 @@
+cases:
+  - input: "Leaf"
+    expected: "0"
+    hidden: false
+  - input: "(Node 1 Leaf Leaf)"
+    expected: "1"
+    hidden: false
+  - input: "(Node 1 (Node 2 Leaf Leaf) Leaf)"
+    expected: "2"
+    hidden: false
+  - input: "(Node 1 (Node 2 (Node 3 Leaf Leaf) Leaf) (Node 4 Leaf Leaf))"
+    expected: "3"
+    hidden: true

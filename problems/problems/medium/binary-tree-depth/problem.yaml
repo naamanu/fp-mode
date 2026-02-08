@@ -1,0 +1,29 @@
+id: binary-tree-depth
+title: "Binary Tree Depth"
+difficulty: medium
+category: algebraic-data-types
+tags: [trees, recursion, adt]
+description: |
+  ## Binary Tree Depth
+
+  Define a binary tree data type and write a function to compute
+  the maximum depth (height) of the tree.
+
+  A leaf has depth 0. A node's depth is 1 + max depth of its children.
+
+  ### Examples
+  ```
+  depth Leaf == 0
+  depth (Node 1 Leaf Leaf) == 1
+  depth (Node 1 (Node 2 Leaf Leaf) Leaf) == 2
+  ```
+
+  ### Constraints
+  - Define your own tree type (provided in starter)
+  - Must handle empty trees (Leaf)
+languages:
+  haskell:
+    functionName: "depth"
+    moduleName: "Solution"
+  ocaml:
+    functionName: "depth"

@@ -1,0 +1,19 @@
+cases:
+  - input: '["inc", "inc", "inc"]'
+    expected: "3"
+    hidden: false
+  - input: '["inc", "dec"]'
+    expected: "0"
+    hidden: false
+  - input: '["inc", "inc", "reset", "inc"]'
+    expected: "1"
+    hidden: false
+  - input: "[]"
+    expected: "0"
+    hidden: false
+  - input: '["dec", "dec", "dec", "inc"]'
+    expected: "-2"
+    hidden: true
+  - input: '["inc", "inc", "inc", "reset", "dec", "dec"]'
+    expected: "-2"
+    hidden: true

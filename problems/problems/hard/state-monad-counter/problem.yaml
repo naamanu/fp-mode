@@ -1,0 +1,31 @@
+id: state-monad-counter
+title: "State Monad Counter"
+difficulty: hard
+category: monads
+tags: [monads, state, haskell]
+description: |
+  ## State Monad Counter
+
+  Implement a simple counter using the State monad.
+
+  You are given a list of commands: `"inc"` increments the counter,
+  `"dec"` decrements it, and `"reset"` sets it to 0.
+
+  Write a function that processes a list of commands starting
+  from counter value 0 and returns the final counter value.
+
+  ### Examples
+  ```
+  runCounter ["inc", "inc", "inc"] == 3
+  runCounter ["inc", "dec"] == 0
+  runCounter ["inc", "inc", "reset", "inc"] == 1
+  runCounter [] == 0
+  ```
+
+  ### Constraints
+  - Must use Control.Monad.State
+  - Process commands sequentially using monadic bind
+languages:
+  haskell:
+    functionName: "runCounter"
+    moduleName: "Solution"

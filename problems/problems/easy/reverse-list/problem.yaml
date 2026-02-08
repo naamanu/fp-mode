@@ -1,0 +1,27 @@
+id: reverse-list
+title: "Reverse a List"
+difficulty: easy
+category: recursion
+tags: [recursion, lists, pattern-matching]
+description: |
+  ## Reverse a List
+
+  Write a function that reverses a list using recursion.
+  Do **not** use any built-in reverse functions.
+
+  ### Examples
+  ```
+  reverse [1, 2, 3] == [3, 2, 1]
+  reverse [] == []
+  reverse [42] == [42]
+  ```
+
+  ### Constraints
+  - Must use recursion (no fold-based shortcuts)
+  - Must handle empty lists
+languages:
+  haskell:
+    functionName: "reverseList"
+    moduleName: "Solution"
+  ocaml:
+    functionName: "reverse_list"

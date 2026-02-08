@@ -1,0 +1,27 @@
+id: map-from-scratch
+title: "Map from Scratch"
+difficulty: easy
+category: higher-order-functions
+tags: [recursion, higher-order-functions, lists]
+description: |
+  ## Map from Scratch
+
+  Implement the `map` function from scratch using recursion.
+  Your function should apply a given function to every element in a list.
+
+  ### Examples
+  ```
+  myMap (+1) [1, 2, 3] == [2, 3, 4]
+  myMap (*2) [5, 10] == [10, 20]
+  myMap id [] == []
+  ```
+
+  ### Constraints
+  - Must use explicit recursion
+  - Do not use the built-in map function
+languages:
+  haskell:
+    functionName: "myMap"
+    moduleName: "Solution"
+  ocaml:
+    functionName: "my_map"

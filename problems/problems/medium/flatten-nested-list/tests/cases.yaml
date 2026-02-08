@@ -1,0 +1,16 @@
+cases:
+  - input: "(Elem 1)"
+    expected: "[1]"
+    hidden: false
+  - input: "(List [Elem 1, Elem 2])"
+    expected: "[1, 2]"
+    hidden: false
+  - input: "(List [Elem 1, List [Elem 2, Elem 3]])"
+    expected: "[1, 2, 3]"
+    hidden: false
+  - input: "(List [])"
+    expected: "[]"
+    hidden: false
+  - input: "(List [List [List [Elem 1]], Elem 2, List [Elem 3, List [Elem 4, Elem 5]]])"
+    expected: "[1, 2, 3, 4, 5]"
+    hidden: true
