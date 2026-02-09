@@ -1,0 +1,99 @@
+---
+title: Progress Tracking
+description: How fp-mode tracks your solve history
+---
+
+fp-mode keeps track of every problem you solve locally on your machine.
+
+## Progress File
+
+Your progress is stored at:
+
+```
+~/.fp-mode/progress.json
+```
+
+This file is created automatically when you solve your first problem.
+
+### Structure
+
+```json
+{
+  "solved": {
+    "reverse-list": {
+      "language": "haskell",
+      "solvedAt": "2026-02-09",
+      "attempts": 3
+    },
+    "map-from-scratch": {
+      "language": "ocaml",
+      "solvedAt": "2026-02-09",
+      "attempts": 1
+    }
+  },
+  "stats": {
+    "easy": { "solved": 2, "total": 2 },
+    "medium": { "solved": 0, "total": 2 },
+    "hard": { "solved": 0, "total": 1 }
+  }
+}
+```
+
+Each entry records:
+- **language** — which language you used for the accepted solution
+- **solvedAt** — the date you solved it
+- **attempts** — how many submissions it took
+
+## Viewing Progress
+
+### Status Command
+
+```bash
+fp-mode status
+```
+
+```
+  fp-mode Progress
+
+  easy   ████████░░  2/2
+  medium ░░░░░░░░░░  0/2
+  hard   ░░░░░░░░░░  0/1
+
+  Total: 2/5 solved
+
+  Recent:
+  ✓ map-from-scratch  ocaml    2026-02-09
+  ✓ reverse-list      haskell  2026-02-09
+```
+
+### Problem List
+
+Solved problems show a checkmark in the list:
+
+```bash
+fp-mode list
+```
+
+```
+  ✓  reverse-list          easy     recursion
+  ✓  map-from-scratch      easy     higher-order-functions
+  ○  binary-tree-depth     medium   recursion
+  ○  flatten-nested-list   medium   recursion
+  ○  state-monad-counter   hard     monads
+```
+
+## Solving in Multiple Languages
+
+A problem is marked as solved when it's accepted in any language. The progress file records which language you used for the accepted submission.
+
+If you solve the same problem in a different language later, the entry is updated with the new language and date.
+
+## Resetting Progress
+
+To start fresh, delete the progress file:
+
+```bash
+rm ~/.fp-mode/progress.json
+```
+
+Your workspace files at `~/.fp-mode/workspace/` are not affected.

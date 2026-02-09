@@ -1,0 +1,52 @@
+---
+title: fp-mode
+description: A CLI online judge for functional programming — solve challenges in Haskell and OCaml
+template: splash
+hero:
+  tagline: A CLI online judge for functional programming. Solve challenges in Haskell and OCaml, judged in Docker sandboxes.
+  image:
+    dark: ../../assets/hero-dark.svg
+    light: ../../assets/hero-dark.svg
+  actions:
+    - text: Get Started
+      link: /fp-mode/getting-started/installation/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/naamanu/fp-mode
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+
+<CardGrid stagger>
+  <Card title="Haskell & OCaml" icon="pencil">
+    Write solutions in **Haskell (GHC 9.8)** or **OCaml 5.2**. Each problem
+    ships with starter code, visible test cases, and a reference solution.
+  </Card>
+
+  <Card title="Docker Sandboxed" icon="setting">
+    Every submission runs inside an isolated Docker container with memory limits,
+    CPU caps, timeouts, and no network access.
+  </Card>
+
+  <Card title="Progress Tracking" icon="star">
+    Your solve history is saved locally. Run `fp-mode status` to see a breakdown
+    by difficulty with progress bars and recent solves.
+  </Card>
+
+  <Card title="Community Problems" icon="add-document">
+    Problems are plain YAML + starter files. Add your own challenges and submit a
+    pull request to grow the catalog.
+  </Card>
+</CardGrid>
+
+## Quick Install
+
+```bash
+pnpm install -g fp-mode
+fp-mode setup          # build Docker images
+fp-mode list           # browse problems
+fp-mode start reverse-list  # begin solving
+```

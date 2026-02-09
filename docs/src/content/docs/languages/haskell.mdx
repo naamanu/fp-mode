@@ -1,0 +1,99 @@
+---
+title: Haskell
+description: Haskell conventions and setup for fp-mode
+---
+
+fp-mode uses **GHC 9.8** for Haskell, running inside a Docker container based on `haskell:9.8-slim`.
+
+## Solution Format
+
+Every Haskell solution is a module named `Solution` that exports the required function:
+
+```haskell
+module Solution (functionName) where
+
+functionName :: TypeSignature
+functionName = undefined  -- replace with your implementation
+```
+
+### Rules
+
+- The module **must** be named `Solution`
+- The exported function name **must** match `languages.haskell.functionName` from `problem.yaml`
+- You can define helper functions, but only the exported function is tested
+
+### Example
+
+For the `reverse-list` problem:
+
+```haskell
+module Solution (reverseList) where
+
+reverseList :: [a] -> [a]
+reverseList [] = []
+reverseList (x:xs) = reverseList xs ++ [x]
+```
+
+## Workspace
+
+Haskell files are stored at:
+
+```
+~/.fp-mode/workspace/<problem-slug>/Solution.hs
+```
+
+## Compilation
+
+Your code is compiled with:
+
+```bash
+ghc -O -o solution Main.hs Solution.hs
+```
+
+- `-O` enables basic optimizations
+- `Main.hs` is a generated test harness that imports your `Solution` module
+
+## Naming Conventions
+
+| Convention | Example |
+|-----------|---------|
+| Function names | camelCase: `reverseList`, `binaryTreeDepth` |
+| Module name | Always `Solution` |
+| Type names | PascalCase: `Tree`, `NestedList` |
+| File name | `Solution.hs` |
+
+## Custom Data Types
+
+Some problems define custom data types in the starter code. For example, the `binary-tree-depth` problem:
+
+```haskell
+module Solution (treeDepth, Tree(..)) where
+
+data Tree a = Empty | Node a (Tree a) (Tree a)
+
+treeDepth :: Tree a -> Int
+treeDepth = undefined
+```
+
+You can add derived instances (like `Show`) but don't change the type definition itself.
+
+## Available Features
+
+The GHC 9.8 environment supports:
+
+- All standard Prelude functions
+- `Data.List`, `Data.Maybe`, `Data.Map`, and other common modules from `base`
+- Pattern matching, guards, where/let bindings
+- Type classes and instances
+- No external packages (only `base` is available)
+
+:::caution
+Do not use language extensions unless you're sure they're available in GHC 9.8 without additional packages. Stick to Haskell 2010 features for maximum compatibility.
+:::
+
+## Tips
+
+- **Use pattern matching** over if-else when possible — it's more idiomatic and often clearer
+- **Leverage the type system** — if it compiles, it's likely correct
+- **Avoid partial functions** like `head` and `tail` — use pattern matching instead
+- **Think recursively** — most fp-mode problems are designed for recursive solutions

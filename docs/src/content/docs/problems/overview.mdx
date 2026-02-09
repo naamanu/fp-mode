@@ -1,0 +1,94 @@
+---
+title: Problem Catalog
+description: All available fp-mode challenges
+---
+
+fp-mode ships with a curated set of functional programming challenges across three difficulty levels.
+
+## Problems
+
+| Problem | Difficulty | Category | Languages |
+|---------|-----------|----------|-----------|
+| [reverse-list](#reverse-list) | Easy | Recursion | Haskell, OCaml |
+| [map-from-scratch](#map-from-scratch) | Easy | Higher-Order Functions | Haskell, OCaml |
+| [binary-tree-depth](#binary-tree-depth) | Medium | Recursion | Haskell, OCaml |
+| [flatten-nested-list](#flatten-nested-list) | Medium | Recursion | Haskell, OCaml |
+| [state-monad-counter](#state-monad-counter) | Hard | Monads | Haskell |
+
+---
+
+### reverse-list
+
+**Difficulty:** Easy | **Category:** Recursion | **Languages:** Haskell, OCaml
+
+Write a function that reverses a list using recursion. Do not use any built-in reverse functions.
+
+```bash
+fp-mode start reverse-list
+```
+
+---
+
+### map-from-scratch
+
+**Difficulty:** Easy | **Category:** Higher-Order Functions | **Languages:** Haskell, OCaml
+
+Implement the `map` function from scratch using recursion. Apply a function to every element in a list.
+
+```bash
+fp-mode start map-from-scratch
+```
+
+---
+
+### binary-tree-depth
+
+**Difficulty:** Medium | **Category:** Recursion | **Languages:** Haskell, OCaml
+
+Calculate the maximum depth of a binary tree. An empty tree has depth 0.
+
+```bash
+fp-mode start binary-tree-depth
+```
+
+---
+
+### flatten-nested-list
+
+**Difficulty:** Medium | **Category:** Recursion | **Languages:** Haskell, OCaml
+
+Flatten an arbitrarily nested list structure into a single flat list.
+
+```bash
+fp-mode start flatten-nested-list
+```
+
+---
+
+### state-monad-counter
+
+**Difficulty:** Hard | **Category:** Monads | **Languages:** Haskell
+
+Implement a counter using the State monad. This problem tests your understanding of monadic state threading.
+
+```bash
+fp-mode start state-monad-counter
+```
+
+:::note
+This problem is currently available in Haskell only, as OCaml doesn't have a built-in monad abstraction.
+:::
+
+## Filtering Problems
+
+Use the CLI to filter by difficulty:
+
+```bash
+fp-mode list --difficulty easy
+fp-mode list --difficulty medium
+fp-mode list --difficulty hard
+```
+
+## Want More Problems?
+
+See [Contributing Problems](/fp-mode/problems/contributing/) to learn how to create and submit new challenges.

@@ -1,0 +1,97 @@
+---
+title: Docker Setup
+description: Building and managing Docker images for fp-mode
+---
+
+fp-mode uses Docker to run your solutions in isolated containers. This ensures consistent behavior regardless of your local environment.
+
+## Building Images
+
+Run the setup command to build both language images:
+
+```bash
+fp-mode setup
+```
+
+This builds:
+
+| Image | Base Image | Size |
+|-------|-----------|------|
+| `fp-mode-haskell` | `haskell:9.8-slim` | ~1.5 GB |
+| `fp-mode-ocaml` | `ocaml/opam:ubuntu-24.04-ocaml-5.2` | ~1.2 GB |
+
+The first build downloads base images and may take several minutes depending on your connection.
+
+## Container Constraints
+
+Each submission runs with these limits:
+
+| Resource | Limit |
+|----------|-------|
+| Memory | 256 MB |
+| CPU | 1 core |
+| Timeout | 10 seconds |
+| Network | Disabled |
+
+Containers are automatically removed after execution.
+
+## How Execution Works
+
+1. Your solution file is mounted read-only into the container at `/workspace`
+2. A test harness is generated that imports your solution and runs all test cases
+3. The code is compiled and executed inside the container
+4. Output is parsed to determine pass/fail for each test case
+
+### Haskell
+
+```bash
+# Inside the container:
+ghc -O -o solution Main.hs Solution.hs
+./solution
+```
+
+### OCaml
+
+```bash
+# Inside the container:
+ocamlfind ocamlopt -package str -linkpkg -o solution solution.ml main.ml
+./solution
+```
+
+## Troubleshooting
+
+### "Docker is not running"
+
+Make sure Docker Desktop is started:
+
+```bash
+docker info
+```
+
+If this fails, open Docker Desktop and wait for it to finish starting.
+
+### "Image not found"
+
+Rebuild the images:
+
+```bash
+fp-mode setup
+```
+
+### Build fails with network errors
+
+Check your internet connection. The base images are large and require downloading from Docker Hub.
+
+```bash
+# Manually pull base images to diagnose:
+docker pull haskell:9.8-slim
+docker pull ocaml/opam:ubuntu-24.04-ocaml-5.2
+```
+
+### Container runs out of memory
+
+If your solution uses excessive memory (over 256 MB), you'll see a runtime error. Optimize your solution to use less memory — avoid building large intermediate data structures.
+
+### Slow compilation
+
+Haskell compilation can be slow for complex solutions. The 10-second timeout includes compilation time. Keep your solutions concise.

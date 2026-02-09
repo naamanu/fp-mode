@@ -1,0 +1,107 @@
+---
+title: OCaml
+description: OCaml conventions and setup for fp-mode
+---
+
+fp-mode uses **OCaml 5.2** for OCaml, running inside a Docker container based on `ocaml/opam:ubuntu-24.04-ocaml-5.2`.
+
+## Solution Format
+
+Every OCaml solution is a file named `solution.ml` that defines the required function:
+
+```ocaml
+let function_name arg = failwith "not implemented"
+```
+
+### Rules
+
+- The function name **must** match `languages.ocaml.functionName` from `problem.yaml`
+- You can define helper functions anywhere in the file
+- The file is compiled as a module named `Solution` (derived from the filename)
+
+### Example
+
+For the `reverse-list` problem:
+
+```ocaml
+let rec reverse_list = function
+  | [] -> []
+  | x :: xs -> reverse_list xs @ [x]
+```
+
+## Workspace
+
+OCaml files are stored at:
+
+```
+~/.fp-mode/workspace/<problem-slug>/solution.ml
+```
+
+## Compilation
+
+Your code is compiled with:
+
+```bash
+ocamlfind ocamlopt -package str -linkpkg -o solution solution.ml main.ml
+```
+
+- Uses `ocamlfind` for package resolution
+- The `str` package is available for string operations
+- `main.ml` is a generated test harness that calls your functions
+
+## Naming Conventions
+
+| Convention | Example |
+|-----------|---------|
+| Function names | snake_case: `reverse_list`, `binary_tree_depth` |
+| Type names | snake_case: `tree`, `nested_list` |
+| Module name | `Solution` (from filename) |
+| File name | `solution.ml` |
+
+## Custom Data Types
+
+Some problems define custom data types in the starter code. For example, the `binary-tree-depth` problem:
+
+```ocaml
+type 'a tree =
+  | Empty
+  | Node of 'a * 'a tree * 'a tree
+
+let tree_depth _ = failwith "not implemented"
+```
+
+Don't change the type definition — the test harness depends on it.
+
+## Available Features
+
+The OCaml 5.2 environment supports:
+
+- All standard library modules (`List`, `Array`, `Map`, `Set`, etc.)
+- The `Str` module for regular expressions (via `-package str`)
+- Pattern matching with guards
+- Recursive and mutually recursive definitions
+- Algebraic data types and polymorphism
+- No opam packages beyond the standard distribution
+
+## Differences from Haskell
+
+If you're coming from Haskell, here are the key differences in fp-mode:
+
+| Haskell | OCaml |
+|---------|-------|
+| `camelCase` functions | `snake_case` functions |
+| `Solution.hs` | `solution.ml` |
+| Lazy by default | Strict by default |
+| Type classes | Modules / functors |
+| `undefined` starter | `failwith "not implemented"` starter |
+| `where` clauses | `let ... in` |
+| `++` for list concat | `@` for list concat |
+| `x:xs` pattern | `x :: xs` pattern |
+
+## Tips
+
+- **Use `function` for direct pattern matching** on the last argument — it's concise and idiomatic
+- **`let rec`** is required for recursive functions (unlike Haskell where all bindings can be recursive)
+- **`match` vs `function`** — use `function` when pattern matching the last argument directly, `match` when you need to bind the argument first
+- **Semicolons** are not needed at the end of top-level definitions
+- **Think about evaluation order** — OCaml is strict, so watch out for stack overflows with deeply recursive solutions on large inputs

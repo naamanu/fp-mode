@@ -1,0 +1,141 @@
+---
+title: Quickstart
+description: Solve your first functional programming challenge in 5 minutes
+---
+
+This guide walks you through the full workflow — browsing problems, writing a solution, and submitting it for judging.
+
+## 1. Browse Problems
+
+```bash
+fp-mode list
+```
+
+```
+  ○  reverse-list          easy     recursion              haskell, ocaml
+  ○  map-from-scratch      easy     higher-order-functions haskell, ocaml
+  ○  binary-tree-depth     medium   recursion              haskell, ocaml
+  ○  flatten-nested-list   medium   recursion              haskell, ocaml
+  ○  state-monad-counter   hard     monads                 haskell
+```
+
+Filter by difficulty:
+
+```bash
+fp-mode list --difficulty easy
+```
+
+## 2. Start a Problem
+
+```bash
+fp-mode start reverse-list
+```
+
+This creates a workspace at `~/.fp-mode/workspace/reverse-list/Solution.hs` with starter code:
+
+```haskell
+module Solution (reverseList) where
+
+-- | Reverse a list using recursion.
+-- Do not use the built-in reverse function.
+reverseList :: [a] -> [a]
+reverseList = undefined
+```
+
+Your configured editor opens automatically. If it doesn't, open the file manually.
+
+:::tip
+Set your preferred editor with the `EDITOR` environment variable:
+```bash
+export EDITOR="code --wait"  # VS Code
+export EDITOR="nvim"         # Neovim
+```
+:::
+
+## 3. Write Your Solution
+
+Replace `undefined` with your implementation:
+
+```haskell
+module Solution (reverseList) where
+
+reverseList :: [a] -> [a]
+reverseList [] = []
+reverseList (x:xs) = reverseList xs ++ [x]
+```
+
+## 4. Submit
+
+```bash
+fp-mode submit reverse-list
+```
+
+```
+  Judging reverse-list (haskell)...
+
+  ✓ Test 1  reverse [1, 2, 3] → [3, 2, 1]
+  ✓ Test 2  reverse [] → []
+  ✓ Test 3  reverse [1] → [1]
+  ✓ Test 4  (hidden)
+
+  Accepted ✓  4/4 tests passed
+```
+
+## 5. Check Your Progress
+
+```bash
+fp-mode status
+```
+
+```
+  fp-mode Progress
+
+  easy   ████░░░░░░  1/2
+  medium ░░░░░░░░░░  0/2
+  hard   ░░░░░░░░░░  0/1
+
+  Total: 1/5 solved
+
+  Recent:
+  ✓ reverse-list  haskell  2026-02-09
+```
+
+## Interactive TUI
+
+You can also launch the interactive terminal UI:
+
+```bash
+fp-mode
+```
+
+Use keyboard shortcuts to navigate:
+- **↑/↓** or **j/k** — move cursor
+- **Enter** — view problem
+- **e** — open in editor
+- **s** — submit solution
+- **l** or **Tab** — switch language
+- **1/2/3** — filter by difficulty
+- **q** — quit
+
+## Using OCaml
+
+To work in OCaml instead of Haskell:
+
+```bash
+fp-mode start reverse-list --lang ocaml
+fp-mode submit reverse-list --lang ocaml
+```
+
+The starter code will be in `solution.ml`:
+
+```ocaml
+let rec reverse_list = function
+  | [] -> []
+  | x :: xs -> reverse_list xs @ [x]
+```
+
+## Next Steps
+
+- [Solving Problems](/fp-mode/guide/solving-problems/) — detailed workflow and tips
+- [CLI Reference](/fp-mode/cli/commands/) — all commands and options
+- [Problem Catalog](/fp-mode/problems/overview/) — browse all challenges

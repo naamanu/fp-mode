@@ -1,0 +1,88 @@
+---
+title: Solving Problems
+description: Detailed workflow for solving fp-mode challenges
+---
+
+## Workflow Overview
+
+Every problem follows the same cycle:
+
+1. **Browse** — find a problem with `fp-mode list` or the interactive TUI
+2. **Start** — scaffold the workspace with `fp-mode start <slug>`
+3. **Edit** — write your solution in your editor
+4. **Submit** — judge your code with `fp-mode submit <slug>`
+
+## Workspace Files
+
+When you run `fp-mode start`, a workspace is created at:
+
+```
+~/.fp-mode/workspace/<problem-slug>/
+├── Solution.hs    # Haskell solution
+└── solution.ml    # OCaml solution (if started with --lang ocaml)
+```
+
+Each language gets its own file. You can work on both languages for the same problem.
+
+## Starter Code
+
+Starter files contain the function signature with `undefined` as the body. For example:
+
+```haskell
+module Solution (reverseList) where
+
+reverseList :: [a] -> [a]
+reverseList = undefined
+```
+
+Your job is to replace `undefined` with a working implementation.
+
+:::caution
+Do not change the module name or function export. The test harness imports your function by name.
+:::
+
+## Visible vs Hidden Tests
+
+Each problem has two kinds of test cases:
+
+| Type | On failure | Purpose |
+|------|-----------|---------|
+| **Visible** | Shows input, expected output, and your actual output | Help you debug |
+| **Hidden** | Only shows pass/fail | Prevent hardcoding answers |
+
+When you submit, you'll see results for all tests:
+
+```
+  ✓ Test 1  reverse [1, 2, 3] → [3, 2, 1]
+  ✗ Test 2  reverse [4, 5] — expected [5, 4], got [4, 5]
+  ✓ Test 3  (hidden)
+  ✗ Test 4  (hidden) — failed
+```
+
+## Result Statuses
+
+| Status | Meaning |
+|--------|---------|
+| **Accepted** | All tests passed |
+| **Wrong Answer** | One or more tests produced incorrect output |
+| **Compile Error** | Your code failed to compile |
+| **Runtime Error** | Your code crashed during execution |
+| **Time Limit Exceeded** | Execution exceeded the 10-second timeout |
+
+## Execution Environment
+
+Your code runs inside a Docker container with these constraints:
+
+- **Memory:** 256 MB
+- **CPU:** 1 core
+- **Timeout:** 10 seconds
+- **Network:** Disabled
+
+The container is destroyed after each submission. Nothing persists between runs.
+
+## Tips
+
+- **Start with visible tests.** They show exact input/output, making debugging easier.
+- **Check types carefully.** Haskell's type system catches many errors at compile time.
+- **Use pattern matching.** Both Haskell and OCaml excel at recursive pattern matching — lean into it.
+- **Handle edge cases.** Empty lists, single elements, and deeply nested structures are common hidden test scenarios.

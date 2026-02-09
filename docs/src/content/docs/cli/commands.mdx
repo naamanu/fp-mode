@@ -1,0 +1,218 @@
+---
+title: CLI Reference
+description: Complete reference for all fp-mode commands
+---
+
+## `fp-mode`
+
+Launch the interactive terminal UI.
+
+```bash
+fp-mode
+```
+
+The TUI provides a full-screen interface for browsing problems, reading descriptions, editing solutions, and submitting — all without leaving the terminal.
+
+### Keyboard Shortcuts
+
+| Key | Action |
+|-----|--------|
+| ↑/↓ or j/k | Move cursor |
+| Enter | View problem |
+| e | Open in editor |
+| s | Submit solution |
+| r | Run visible tests |
+| l or Tab | Switch language |
+| 1/2/3 | Filter by difficulty |
+| q or Esc | Back / Quit |
+
+---
+
+## `fp-mode list`
+
+List all available problems.
+
+```bash
+fp-mode list [options]
+```
+
+### Options
+
+| Option | Description |
+|--------|-------------|
+| `-d, --difficulty <level>` | Filter by difficulty: `easy`, `medium`, or `hard` |
+
+### Examples
+
+```bash
+# List all problems
+fp-mode list
+
+# List only easy problems
+fp-mode list --difficulty easy
+fp-mode list -d easy
+```
+
+### Output
+
+```
+  ✓  reverse-list          easy     recursion              haskell, ocaml
+  ○  map-from-scratch      easy     higher-order-functions haskell, ocaml
+  ○  binary-tree-depth     medium   recursion              haskell, ocaml
+```
+
+- ✓ = solved
+- ○ = unsolved
+
+---
+
+## `fp-mode start`
+
+Start working on a problem. Creates workspace files and opens your editor.
+
+```bash
+fp-mode start <slug> [options]
+```
+
+### Arguments
+
+| Argument | Description |
+|----------|-------------|
+| `slug` | Problem identifier (e.g. `reverse-list`) |
+
+### Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `-l, --lang <language>` | `haskell` | Language to use: `haskell` or `ocaml` |
+
+### Examples
+
+```bash
+# Start in Haskell (default)
+fp-mode start reverse-list
+
+# Start in OCaml
+fp-mode start reverse-list --lang ocaml
+fp-mode start reverse-list -l ocaml
+```
+
+### Workspace
+
+Files are created at:
+
+```
+~/.fp-mode/workspace/<slug>/Solution.hs    # Haskell
+~/.fp-mode/workspace/<slug>/solution.ml    # OCaml
+```
+
+---
+
+## `fp-mode submit`
+
+Submit your solution for judging.
+
+```bash
+fp-mode submit <slug> [options]
+```
+
+### Arguments
+
+| Argument | Description |
+|----------|-------------|
+| `slug` | Problem identifier |
+
+### Options
+
+| Option | Default | Description |
+|--------|---------|-------------|
+| `-l, --lang <language>` | `haskell` | Language of your solution |
+
+### Examples
+
+```bash
+# Submit Haskell solution
+fp-mode submit reverse-list
+
+# Submit OCaml solution
+fp-mode submit reverse-list --lang ocaml
+```
+
+### Output
+
+```
+  Judging reverse-list (haskell)...
+
+  ✓ Test 1  reverse [1, 2, 3] → [3, 2, 1]
+  ✓ Test 2  reverse [] → []
+  ✗ Test 3  reverse [4, 5] — expected [5, 4], got [4, 5]
+  ✓ Test 4  (hidden)
+
+  Wrong Answer  3/4 tests passed
+```
+
+### Requirements
+
+- Docker must be running
+- Docker images must be built (`fp-mode setup`)
+- Solution file must exist in the workspace
+
+---
+
+## `fp-mode status`
+
+Show your progress summary.
+
+```bash
+fp-mode status
+```
+
+### Output
+
+```
+  fp-mode Progress
+
+  easy   ████████░░  2/2
+  medium ██████░░░░  1/2
+  hard   ░░░░░░░░░░  0/1
+
+  Total: 3/5 solved
+
+  Recent:
+  ✓ binary-tree-depth  haskell  2026-02-09
+  ✓ map-from-scratch   ocaml    2026-02-09
+  ✓ reverse-list       haskell  2026-02-09
+```
+
+Shows:
+- Progress bars for each difficulty level
+- Total solve count
+- 5 most recent solves with language and date
+
+---
+
+## `fp-mode setup`
+
+Build Docker images for Haskell and OCaml.
+
+```bash
+fp-mode setup
+```
+
+This must be run once before submitting solutions. It builds:
+
+- `fp-mode-haskell` — GHC 9.8 environment
+- `fp-mode-ocaml` — OCaml 5.2 environment
+
+### Requirements
+
+- Docker must be running
+
+---
+
+## Global Options
+
+| Option | Description |
+|--------|-------------|
+| `-V, --version` | Print version number |
+| `-h, --help` | Show help |

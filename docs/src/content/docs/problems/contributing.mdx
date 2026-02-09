@@ -1,0 +1,162 @@
+---
+title: Contributing Problems
+description: How to create and submit new fp-mode challenges
+---
+
+fp-mode problems are defined as plain files — YAML metadata, starter code, reference solutions, and test cases. Anyone can contribute new problems.
+
+## Directory Structure
+
+Each problem lives in a directory under its difficulty level:
+
+```
+problems/
+└── <difficulty>/
+    └── <problem-slug>/
+        ├── problem.yaml
+        ├── starters/
+        │   ├── haskell.hs
+        │   └── ocaml.ml
+        ├── solutions/
+        │   ├── haskell.hs
+        │   └── ocaml.ml
+        └── tests/
+            └── cases.yaml
+```
+
+## Problem Metadata (`problem.yaml`)
+
+```yaml
+id: my-new-problem
+title: "My New Problem"
+difficulty: medium
+category: recursion
+tags: [recursion, lists, pattern-matching]
+description: |
+  ## My New Problem
+
+  Write a function that does something interesting.
+
+  ### Examples
+  ```
+  myFunction [1, 2, 3] == [3, 2, 1]
+  myFunction [] == []
+  ```
+
+  ### Constraints
+  - Must use recursion
+  - Must handle empty input
+
+languages:
+  haskell:
+    functionName: "myFunction"
+    moduleName: "Solution"
+  ocaml:
+    functionName: "my_function"
+```
+
+### Fields
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| `id` | Yes | Unique slug (lowercase, hyphens) |
+| `title` | Yes | Display name |
+| `difficulty` | Yes | `easy`, `medium`, or `hard` |
+| `category` | Yes | Problem category (e.g. `recursion`, `higher-order-functions`, `monads`) |
+| `tags` | Yes | Array of tags |
+| `description` | Yes | Markdown problem statement |
+| `languages` | Yes | Per-language config |
+| `languages.<lang>.functionName` | Yes | Function name the solver must implement |
+| `languages.<lang>.moduleName` | No | Module name (Haskell only, defaults to `Solution`) |
+
+## Starter Code
+
+Starters provide the function signature with `undefined` as the body.
+
+### Haskell (`starters/haskell.hs`)
+
+```haskell
+module Solution (myFunction) where
+
+-- | Brief description of what to implement.
+myFunction :: [a] -> [a]
+myFunction = undefined
+```
+
+### OCaml (`starters/ocaml.ml`)
+
+```ocaml
+(* Brief description of what to implement. *)
+let my_function _ = failwith "not implemented"
+```
+
+## Reference Solutions
+
+Provide working solutions that pass all test cases.
+
+### Haskell (`solutions/haskell.hs`)
+
+```haskell
+module Solution (myFunction) where
+
+myFunction :: [a] -> [a]
+myFunction [] = []
+myFunction (x:xs) = myFunction xs ++ [x]
+```
+
+### OCaml (`solutions/ocaml.ml`)
+
+```ocaml
+let rec my_function = function
+  | [] -> []
+  | x :: xs -> my_function xs @ [x]
+```
+
+## Test Cases (`tests/cases.yaml`)
+
+```yaml
+cases:
+  - input: "[1, 2, 3]"
+    expected: "[3, 2, 1]"
+    hidden: false
+  - input: "[]"
+    expected: "[]"
+    hidden: false
+  - input: "[1]"
+    expected: "[1]"
+    hidden: true
+  - input: "[1, 2, 3, 4, 5]"
+    expected: "[5, 4, 3, 2, 1]"
+    hidden: true
+```
+
+### Test Case Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `input` | String | Function argument as a string |
+| `expected` | String | Expected output as a string |
+| `hidden` | Boolean | If `true`, input/expected are not shown on failure |
+
+:::tip
+Include at least 2-3 visible test cases so solvers can understand the expected behavior, and 1-2 hidden test cases to prevent hardcoded answers.
+:::
+
+## Naming Conventions
+
+- **Problem slug:** lowercase with hyphens (`binary-tree-depth`)
+- **Haskell function:** camelCase (`binaryTreeDepth`)
+- **OCaml function:** snake_case (`binary_tree_depth`)
+- **Haskell module:** Always `Solution`
+
+## Submission Checklist
+
+Before submitting a pull request:
+
+1. All fields in `problem.yaml` are filled out
+2. Starter code compiles (with `undefined`)
+3. Reference solutions pass all test cases
+4. At least 3 visible test cases and 1 hidden test case
+5. Description includes examples and constraints
+6. Problem slug matches the directory name and `id` field
+7. Both Haskell and OCaml are supported (unless the problem is language-specific)

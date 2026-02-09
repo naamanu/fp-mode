@@ -1,0 +1,54 @@
+---
+title: Installation
+description: Install fp-mode and set up your environment
+---
+
+## Prerequisites
+
+Before installing fp-mode, make sure you have:
+
+- **Node.js 20+** — [Download Node.js](https://nodejs.org/)
+- **Docker** — [Install Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- **pnpm** (recommended) — `npm install -g pnpm`
+
+## Install fp-mode
+
+```bash
+pnpm install -g fp-mode
+```
+
+Or with npm:
+
+```bash
+npm install -g fp-mode
+```
+
+Verify the installation:
+
+```bash
+fp-mode --version
+# 0.1.0
+```
+
+## Build Docker Images
+
+fp-mode runs your code inside Docker containers. You need to build the language images once:
+
+```bash
+fp-mode setup
+```
+
+This builds two images:
+
+| Image | Base | Language |
+|-------|------|----------|
+| `fp-mode-haskell` | `haskell:9.8-slim` | GHC 9.8 |
+| `fp-mode-ocaml` | `ocaml/opam:ubuntu-24.04-ocaml-5.2` | OCaml 5.2 |
+
+:::tip
+Make sure Docker Desktop is running before executing `fp-mode setup`. The build may take a few minutes on the first run as it downloads the base images.
+:::
+
+## Next Steps
+
+You're all set! Head to the [Quickstart](/fp-mode/getting-started/quickstart/) to solve your first problem.
